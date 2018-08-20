@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+android {
+    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
+
+//    странный хак, но не работает
+    packagingOptions {
+        exclude 'lib/armeabi-v7a/libnative.so'
+        exclude 'lib/x86/libnative.so'
+    }
+
+    defaultConfig {
+        applicationId "com.flir.flironeexampleapplication"
+        minSdkVersion 18
+        targetSdkVersion 25
+        versionCode 20
+        versionName "2.0.4"
+
+        //Required for SDK unit tests.
+        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "armeabi", "mips"
+        }
+
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+dependencies {
+    implementation 'com.android.support:design:25.4.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile(name: 'flironesdk', ext: 'aar')
+    //compile fileTree(include: ['*.aar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //Required for SDK unit tests.
+    //androidTestCompile 'com.android.support:support-annotations:25.3.1'
+    //androidTestCompile 'com.android.support.test:runner:0.5'
+    //androidTestCompile 'com.android.support.test:rules:0.5'
+    //androidTestCompile 'junit:junit:4.12'
+}
+//android {
+//    defaultConfig {
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//    }
+//}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}

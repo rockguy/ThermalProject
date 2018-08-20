@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\7921cdc5e4a06d4c6705ff721cd373c45ec3c8c9\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_839a99ab8e11948115e1690f6dfd25096dfca731\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\434a94817b1e53e22d189bcf629e10606ea52f20\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5aa5339ac84051bdc7763fc0aa821b87b1730493\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\8986259536943f62fa435f1a02ace53abdc77b4f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3f632636572a0065be35e586e31ef37053a8302d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\faccba5e74fa4baaee04c793cc05eef14d6a4c2b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_229d476de0908dc635c8c84673038646b1b1caf7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\ff36255e7b8c038cf9ae731a440edd29397450dc\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_965b994e4cf0909380d77f08500911e148ec6f46\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\4d9e3779f2a7bc44bc3ff2dddfd0778fd2f18bff\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1d81bc9baac38e466934e8e027e755f5dfe914de">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f2df9ae1a91b4fa195e54444829bfc7042d29f46\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\dca736c1c18634065bd5db4d46b7485dfdce7c24\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_258b3e04acb0c78d7b0315d8d34e56d1827ad536\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7ccb3c9aef32609cd3e576329bb313c6604d57e2">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_d1d5fbed1aa8b5dc8e364d562ffc77c041099eb9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\3f9283daa86cdc7562f021885c70a1494b7fd7bb\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_381fa6cfe18b9b6b9ff45dabac4064fe6e522375\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\45cc585f042ef16c3672368b3faf9959b9572ab3\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e694283397027c0122ddcf8605cf1098701fbfdf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\e20ba91d19f79815dabc8c3af14d3abf485538ee\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f4c2d937c6b77beb707dffb8670776949e63efc8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\.android\build-cache\a0db3a90673ea44d0fe24ba0558450bf9c03d305\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a6c94ad94b924ebc7767f003a2c71d92d7b32a06\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.3.1\support-annotations-25.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.3.1_22bec40b348587feb3fc4a7d36d178490f0f4363\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_9dfde4ded925cc120afdd0e50a6051641c28a8f6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\HP\Downloads\FLIROneSDK-Android_3_0_1\FLIROneSDKBundle\FLIRONEExampleApplication\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_5d10c739f0a4fe64ed56f4c3984625a7cc88234f\classes.dex" />
+    </item>
+
+</items>
