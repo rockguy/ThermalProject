@@ -55,6 +55,7 @@ public class EditorActivity extends Activity {
                     });
                 }else if (renderedImage.imageType() == RenderedImage.ImageType.ThermalRadiometricKelvinImage) {
                     double averageTemp = 0;
+                    double minTemp = Double.MAX_VALUE;
                     short[] shortPixels = new short[renderedImage.pixelData().length / 2];
                     ByteBuffer.wrap(renderedImage.pixelData()).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer().get(shortPixels);
                     for (int i = 0; i < shortPixels.length; i++) {
@@ -65,6 +66,19 @@ public class EditorActivity extends Activity {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(), "Average Temperature = " + averageC + "ºC", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    int[] values = renderedImage.thermalPixelValues();
+                    for (int i=0; i<values.length; i++){
+                        if(minTemp>values[i])
+                            minTemp = values[i];
+                    }
+
+                    final double finalMinTemp = minTemp;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Minimum Temperature = " + (finalMinTemp /100-273.15)  + "ºC", Toast.LENGTH_LONG).show();
                         }
                     });
 

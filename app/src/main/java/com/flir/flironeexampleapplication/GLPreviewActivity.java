@@ -51,6 +51,7 @@ import java.io.Console;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -107,6 +108,8 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
     private boolean isProcessing;
     private static boolean notStarted = true;
     private int delta;
+    private int minTemp;
+    private int maxTemp;
     // Device Delegate methods
 
     // Called during device discovery, when a device is connected
@@ -243,7 +246,7 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
     int[] thermalPixels;
     // Frame Processor Delegate method, will be called each time a rendered frame is produced
     public void onFrameProcessed(final RenderedImage renderedImage){
-        Log.v(TAG, "Frame Processing!");
+        Log.v("Test", "Frame Processing!, type: " + renderedImage.imageType().name());
         if (renderedImage.imageType() == RenderedImage.ImageType.ThermalRadiometricKelvinImage){
         // Note: this code is not optimized
 
@@ -288,7 +291,7 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
         /*
         Capture this image if requested.
         */
-        if (this.imageCaptureRequested) {
+        if (this.imageCaptureRequested && renderedImage.imageType() == RenderedImage.ImageType.VisibleAlignedRGBA8888Image) {
             if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED)) {
                 Log.i("Test", "Activity: permissions needed");
@@ -301,7 +304,46 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
             imageCaptureRequested = false;
             Log.i("Test", "Activity: permissions ok");
 
-            doExperiment();
+
+                    final String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ssZ", Locale.getDefault());
+                    String formatedDate = sdf.format(new Date());
+                    final String fileName = "FLIROne-" + formatedDate + ".jpg";
+                    try {
+                        lastSavedPath = path + "/" + fileName;
+                        Log.i("Test", "Activity: file full name:  " + lastSavedPath);
+                        renderedImage.getFrame().save(new File(lastSavedPath), frameProcessor);
+                        File f = new File(lastSavedPath);
+                        Log.i("Test", "Activity: file exist?  " + f.exists());
+                        Log.i("Test", "Activity: file TotalSpace?  " + f.getTotalSpace());
+
+                                Intent i = new Intent(getApplication(), ImageViewer.class);
+
+                                i.putExtra("imagePath", lastSavedPath);
+                                i.putExtra("delta", delta);
+                                i.putExtra("minTemp", minTemp);
+                                i.putExtra("maxTemp", maxTemp);
+                                startActivity(i);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), " Can't save it", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                    }
+
+
+
+
+
+
+
+
+            //doExperiment();
 //            new Thread(new Runnable() {
 //                public void run() {
 //                    final String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
@@ -533,9 +575,12 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
 
     private void startPerforming() {
         Log.i("Test", "Activity: onCreate");
+        Log.i("Test", "Activity: minTemp:" + minTemp);
         Intent serviceIntent = new Intent(this, Analizer.class);
         serviceIntent.putExtra("imagePath", lastSavedPath);
         serviceIntent.putExtra("delta", delta);
+        serviceIntent.putExtra("minTemp", minTemp);
+        serviceIntent.putExtra("maxTemp", maxTemp);
         startService(serviceIntent);
         Log.i("Test", "Activity: startService");
     }
@@ -711,7 +756,9 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
 
         Intent inputIntent = getIntent();
 
-        delta = inputIntent.getIntExtra("delta", 1);
+        delta = inputIntent.getIntExtra("delta", 0);
+        minTemp = inputIntent.getIntExtra("minTemp", 0);
+        maxTemp = inputIntent.getIntExtra("maxTemp", 0);
 
         setContentView(R.layout.activity_gl_preview);
         ringsStatus = (TextView) findViewById(R.id.ringsStatus);
@@ -719,8 +766,8 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
         final View controlsViewTop = findViewById(R.id.fullscreen_content_controls_top);
         final View contentView = findViewById(R.id.fullscreen_content);
 
-        RenderedImage.ImageType defaultImageType = RenderedImage.ImageType.ThermalRGBA8888Image;
-        frameProcessor = new FrameProcessor(this, this, EnumSet.of(RenderedImage.ImageType.ThermalRadiometricKelvinImage), true);
+        RenderedImage.ImageType defaultImageType = RenderedImage.ImageType.VisibleAlignedRGBA8888Image;
+        frameProcessor = new FrameProcessor(this, this, EnumSet.of(RenderedImage.ImageType.ThermalRadiometricKelvinImage, RenderedImage.ImageType.VisibleAlignedRGBA8888Image), true);
         frameProcessor.setGLOutputMode(defaultImageType);
 
         thermalSurfaceView = (GLSurfaceView) findViewById(R.id.imageView);
@@ -881,6 +928,28 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
     @Override
     public void onResume(){
         super.onResume();
+
+        takePhoto = (ImageButton) findViewById(R.id.imageButton);
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCaptureImageClicked(view);
+            }
+        });
+        if (Device.getSupportedDeviceClasses(this).contains(FlirUsbDevice.class)){
+            findViewById(R.id.pleaseConnect).setVisibility(View.VISIBLE);
+        }
+        try {
+            Device.startDiscovery(this, this);
+        }catch(IllegalStateException e){
+            // it's okay if we've already started discovery
+        }catch (SecurityException e){
+            // On some platforms, we need the user to select the app to give us permisison to the USB device.
+            Toast.makeText(this, "Please insert FLIR One and select "+getString(R.string.app_name), Toast.LENGTH_LONG).show();
+            // There is likely a cleaner way to recover, but for now, exit the activity and
+            // wait for user to follow the instructions;
+            finish();
+        }
 
         thermalSurfaceView.onResume();
 

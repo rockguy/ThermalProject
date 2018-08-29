@@ -16,7 +16,7 @@ import com.flir.flironeexampleapplication.models.PhotoModel;
 import io.realm.Realm;
 
 public class StartActivity extends AppCompatActivity {
-    public static final String TAG = "Gold Detector";
+    public static final String TAG = "RICHEST";
     //RICHEST
 
     @Override
@@ -46,20 +46,36 @@ public class StartActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final EditText input = (EditText) findViewById(R.id.delta);
+        final EditText delta = (EditText) findViewById(R.id.delta);
+        final EditText minTemp = (EditText) findViewById(R.id.minTemp);
+        final EditText maxTemp = (EditText) findViewById(R.id.maxTemp);
         Button button = (Button) findViewById(R.id.button);
 
         final Intent i = new Intent(this, GLPreviewActivity.class);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String in = input.getText().toString();
+
+                //TODO: разобраться с выбором режима
+                String deltaVal = (String) delta.getText().toString();
+
+                Log.i("Test", "delta:" + deltaVal);
+                if(!deltaVal.equals("")){
+                    i.putExtra("delta", Integer.parseInt(deltaVal));
+                }
+                else{
+                    i.putExtra("minTemp", Integer.parseInt(minTemp.getText().toString()));
+                    i.putExtra("maxTemp", Integer.parseInt(maxTemp.getText().toString()));
+
+                }
+
+
 
 //                if(in != "") {
 //                    i.putExtra("delta", Integer.parseInt(in));
 //                }
 //                else {
-                    i.putExtra("delta", 2);
+
                 //}
                 startActivity(i);
             }

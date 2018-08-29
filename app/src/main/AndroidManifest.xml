@@ -29,6 +29,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data android:mimeType="image/jpeg" />
+                <data android:mimeType="image/jpg" />
             </intent-filter>
         </activity>
         <activity
@@ -81,6 +82,11 @@
             android:name=".HistoryList"
             android:label="@string/title_activity_history_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ImageViewer"
+            android:label="ImageViewer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
+
 
 </manifest>
