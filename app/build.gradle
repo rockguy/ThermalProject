@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.flir.flironeexampleapplication"
+        applicationId "com.vinnik.richest"
         minSdkVersion 18
         targetSdkVersion 25
         versionCode 20
