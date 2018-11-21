@@ -4,32 +4,54 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
     <TextView
-        android:id="@+id/hand"
+        android:id="@+id/the_weather"
         android:layout_height="40dp"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:text="1"/>
+        android:text="the_weather"/>
     <TextView
-        android:id="@+id/first_photo"
+        android:id="@+id/wind_speed"
         android:layout_height="40dp"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:text="2"/>
+        android:text="wind_speed"/>
     <TextView
-        android:id="@+id/second_photo"
+        android:id="@+id/outdoor_temp"
         android:layout_height="40dp"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:text="3"/>
+        android:text="outdoor_temp"/>
     <TextView
-        android:id="@+id/third_photo"
+        android:id="@+id/avg_temp"
         android:layout_height="40dp"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:text="4"/>
+        android:text="avg_temp"/>
+    <TextView
+        android:id="@+id/min_temp"
+        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="min_temp"/>
+    <TextView
+        android:id="@+id/air_humidity"
+        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="air_humidity"/>
+    <TextView
+        android:id="@+id/time"
+        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="time"/>
+
+
     <TextView
         android:id="@+id/result"
         android:layout_height="40dp"
         android:layout_width="0dp"
-        android:layout_weight="5"/>
+        android:layout_weight="1"
+        android:text="result"/>
+
 </LinearLayout>

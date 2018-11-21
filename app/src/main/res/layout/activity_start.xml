@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,64 +20,127 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/appbar"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Минимальная температура:" />
+        <!--<TextView-->
+        <!--android:id="@+id/textView1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Минимальная температура:" />-->
 
-        <EditText
-            android:id="@+id/minTemp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
-
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Максимальная температура:" />
-
-        <EditText
-            android:id="@+id/maxTemp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
+        <!--<EditText-->
+        <!--android:id="@+id/minTemp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="number"-->
+        <!--/>-->
 
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Разница в температуре:" />
+        <!--<TextView-->
+        <!--android:id="@+id/textView2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Максимальная температура:" />-->
 
-        <EditText
-            android:id="@+id/delta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
+        <!--<EditText-->
+        <!--android:id="@+id/maxTemp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="number"-->
+        <!--/>-->
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/textView3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Разница в температуре:" />-->
+
+        <!--<EditText-->
+        <!--android:id="@+id/delta"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="number"-->
+        <!--/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/the_weather_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="погода:" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/the_weather"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Мороз и солнце" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/outdoor_temp_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="температура воздуха:" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/outdoor_temp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="number"-->
+            <!--android:text="10" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/air_humidity_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="влажность воздуха:" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/air_humidity"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="number"-->
+            <!--android:text="80" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/wind_speed_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="скорость ветра:" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/wind_speed"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="number"-->
+            <!--android:text="5"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/teach_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Начать обучение" />-->
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/start_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Начать"
-            />
+            android:text="Начать опыт" />
+
         <Button
             android:id="@+id/historyButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/button"
-            />
-
+            android:text="История" />
+        <EditText
+        android:id="@+id/delta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="8"
+        />
     </LinearLayout>
 </RelativeLayout>
