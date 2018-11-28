@@ -1,0 +1,84 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:orientation="vertical"
+    tools:context="com.vinnik.richest.GLPreviewActivity"
+    android:keepScreenOn="true"
+    android:id="@+id/topView"
+    android:touchscreenBlocksFocus="false">
+
+
+
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+        <android.opengl.GLSurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal|top"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:scaleType="fitCenter"
+            />
+
+        </RelativeLayout>
+
+
+
+        <FrameLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            tools:ignore="UselessParent"
+            android:columnCount="3"
+            android:rowCount="2">
+
+
+            <ImageButton style="?metaButtonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton"
+                android:layout_weight="0.33"
+                android:onClick="onCaptureImageClicked"
+                android:src="@android:drawable/ic_menu_camera"
+                android:layout_gravity="center_horizontal|bottom" />
+        </FrameLayout>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuningProgressBar"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/txtTuning"
+            android:id="@+id/tuningTextView"
+            android:labelFor="@id/tuningProgressBar"
+            android:layout_gravity="center"
+            android:layout_marginTop="36dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Please Connect FLIR One"
+            android:id="@+id/pleaseConnect"
+            android:layout_gravity="center"
+            android:layout_marginTop="90dp"
+            android:visibility="gone" />
+
+
+</FrameLayout>

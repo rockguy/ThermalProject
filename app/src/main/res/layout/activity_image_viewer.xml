@@ -24,11 +24,14 @@
         android:layout_width="match_parent"
         android:layout_below="@id/appbar"
         />
-    <EditText
-        android:id="@+id/result"
+    <TextView
+        android:id="@+id/resultTop"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:hint="Металл?"/>
+        android:layout_width="match_parent"/>
+    <TextView
+        android:id="@+id/resultBottom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
     <Button
         android:id="@+id/save_button"
         android:layout_width="match_parent"
