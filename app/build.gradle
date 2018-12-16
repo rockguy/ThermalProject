@@ -33,6 +33,21 @@ android {
         }
     }
 
+//    sourceSets {
+//        main {
+//            res.srcDirs =
+//                    [
+//                            'src/main/res/layouts/items',
+//                            'src/main/res/layouts',
+//                            'src/main/res'
+//                    ]
+//        }
+//    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 dependencies {
     implementation 'com.android.support:design:25.4.0'

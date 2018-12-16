@@ -8,21 +8,20 @@
     <uses-permission android:name="android.permission.service" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
-        android:name="com.vinnik.richest.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:versionCode="1"
         android:versionName="1.0">
-        <service android:name="com.vinnik.richest.util.Analizer" />
+        <service android:name=".util.Analizer" />
 
         <activity
-            android:name="com.vinnik.richest.EditorActivity"
-            android:screenOrientation="portrait"
-            android:noHistory="true">
+            android:name=".EditorActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -36,13 +35,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vinnik.richest.GLPreviewActivity"
+            android:name=".GLPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"
-            android:noHistory="true">
+            android:theme="@style/FullscreenTheme">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -73,36 +72,40 @@
                 android:resource="@xml/device_filter" />
         </activity>
         <activity
-            android:name="com.vinnik.richest.StartActivity"
+            android:name=".StartActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vinnik.richest.HistoryList"
+            android:name=".HistoryList"
             android:label="@string/title_activity_history_list"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.vinnik.richest.GLUserPreviewActivity"
+            android:name=".GLUserPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:launchMode="singleTask"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme"
-            android:noHistory="true"></activity>
-        <activity android:name="com.vinnik.richest.ImageViewer"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".ImageViewer"
             android:label="ImageViewer"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:noHistory="true"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DiamondDetail"
+            android:label="title_activity_diamond_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
 
 </manifest>

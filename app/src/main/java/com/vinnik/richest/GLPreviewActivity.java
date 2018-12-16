@@ -420,7 +420,6 @@ public class GLPreviewActivity extends Activity implements Device.Delegate, Fram
 //                            }
 
                             Log.i("Test", "HandTemp: " + handTemp);
-                            //TODO: не оптимально
                             List<Integer> list = findAllLessThan(thermalPixels, (handTemp-1 + 273.15)*100 );
                             //temp = 0;t
                             Log.i("Test", "List lenght: " + list.size());

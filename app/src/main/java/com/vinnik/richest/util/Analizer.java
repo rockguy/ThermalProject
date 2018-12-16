@@ -183,7 +183,7 @@ public class Analizer extends Service {
         public abstract int move(int index, int width);
     }
 
-    static class Pair {
+    public static class Pair {
 
         public static Pair of(int index) {
             return of(index, 0);
@@ -193,8 +193,8 @@ public class Analizer extends Service {
             return new Pair(index, group);
         }
 
-        int index;
-        int group;
+        public int index;
+        public int group;
 
         Pair(int index, int group) {
             this.index = index;
@@ -262,11 +262,10 @@ public class Analizer extends Service {
         int iterator1 = 0;
         int countOfGroup = 0;
         for (Pair p : pairs) {
-            Log.i("Test", String.valueOf(++iterator));
             // p - текущая точка
             if (p.group == 0) {
                 p.group = ++countOfGroup;
-                //System.out.println("Count of group: " + countOfGroup);
+                System.out.println("Count of group: " + countOfGroup);
             }
             //System.out.println('/');
             // перебираем точки вокруг текущей точки

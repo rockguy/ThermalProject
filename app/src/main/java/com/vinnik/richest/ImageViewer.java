@@ -2,7 +2,9 @@ package com.vinnik.richest;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -12,36 +14,48 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.flir.flironesdk.FrameProcessor;
 import com.flir.flironesdk.LoadedFrame;
 import com.flir.flironesdk.RenderedImage;
+import com.vinnik.richest.Adapters.ImageViewAdapter;
+import com.vinnik.richest.models.DiamondModel;
+import com.vinnik.richest.util.Analizer;
+import com.vinnik.richest.util.TemperatureHelper;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
 import io.realm.Realm;
 
+import static com.vinnik.richest.StartActivity.DIAMOND_FACTORS;
+import static com.vinnik.richest.StartActivity.FACTOR_K;
 import static com.vinnik.richest.StartActivity.TAG;
+import static com.vinnik.richest.util.Analizer.checkGroup;
 
 public class ImageViewer extends Activity {
     private String imagePath;
     private Intent inputIntent;
     private FrameProcessor frameProcessor;
+    ImageViewAdapter adapter;
 
     ImageView imageView;
+    ListView resultsListView;
     Button saveButton;
-    private TextView resultTop;
-    private TextView resultBottom;
+
+    SharedPreferences preferences;
+
 
     int width;
 
-    private double CONSTANT_FACTOR_K;
-    private double CONSTANT_FACTOR_M;
+    private float CONSTANT_FACTOR_K;
+//    private float CONSTANT_FACTOR_M;
+
+    private float DIAMOND_TOP_TEMPERATURE_C = 76;
+    private float DIAMOND_TOP_TEMPERATURE_K = TemperatureHelper.celsiusToKelvin(DIAMOND_TOP_TEMPERATURE_C);
 
     Realm realm;
 
@@ -52,11 +66,13 @@ public class ImageViewer extends Activity {
 
         setContentView(R.layout.activity_image_viewer);
 
+        preferences = getSharedPreferences(DIAMOND_FACTORS, MODE_PRIVATE);
+
         imageView = (ImageView) findViewById(R.id.imageView);
-        saveButton = (Button) findViewById(R.id.save_button);
-        resultTop = (TextView) findViewById(R.id.resultTop);
-        resultBottom = (TextView) findViewById(R.id.resultBottom);
         inputIntent = getIntent();
+
+        resultsListView = (ListView) findViewById(R.id.resultsListView);
+
         //подгрузить картинку
     }
 
@@ -84,12 +100,10 @@ public class ImageViewer extends Activity {
 //            }
 //        });
         imagePath = inputIntent.getStringExtra("imagePath");
-        CONSTANT_FACTOR_K = inputIntent.getDoubleExtra("factorK",6);
-        CONSTANT_FACTOR_M = inputIntent.getDoubleExtra("factorM",6);
+        CONSTANT_FACTOR_K = preferences.getFloat(FACTOR_K, 0);
+//        CONSTANT_FACTOR_M = preferences.getFloat(FACTOR_M, 0);
 
         File frameFile = new File(imagePath);
-        resultTop = (TextView) findViewById(R.id.resultTop);
-        resultBottom = (TextView) findViewById(R.id.resultBottom);
 
         Log.i("Test", "Service: frameFile.getName() = " + frameFile.getName());
 
@@ -181,25 +195,26 @@ public class ImageViewer extends Activity {
 
 
     private class ImageData {
-        private double minTemp;
-        private double avgTemp;
+        private float minTemp;
+        private float avgTemp;
 
-        ImageData(){
-            minTemp = Double.MAX_VALUE;
+        ImageData() {
+            minTemp = Float.MAX_VALUE;
         }
-        public double getMinTemp() {
+
+        public float getMinTemp() {
             return minTemp;
         }
 
-        public void setMinTemp(double minTemp) {
+        public void setMinTemp(float minTemp) {
             this.minTemp = minTemp;
         }
 
-        public double getAvgTemp() {
+        public float getAvgTemp() {
             return avgTemp;
         }
 
-        public void setAvgTemp(double avgTemp) {
+        public void setAvgTemp(float avgTemp) {
             this.avgTemp = avgTemp;
         }
     }
@@ -215,17 +230,56 @@ public class ImageViewer extends Activity {
                 imageView.setImageBitmap(thermalBitmap);
 
             } else if (renderedImage.imageType() == RenderedImage.ImageType.ThermalRadiometricKelvinImage) {
-                int[] data = renderedImage.thermalPixelValues();
-                int[] topData = new int[data.length/2];
-                int[] bottomData = new int[data.length/2];
-                topData = Arrays.copyOfRange(data,0,data.length/2);
-                bottomData = Arrays.copyOfRange(data,data.length/2, data.length);
-                ImageData imageData = getImageData(topData);
-                double factorM = imageData.getMinTemp();
-                double factorD = getFactorD(topData, factorM, imageData.getAvgTemp());
-                double factorK = factorD / factorM;
+                int[] thermalPixels = renderedImage.thermalPixelValues().clone();
+                int width = renderedImage.width();
+                renderedImage = null;
+                double avgTempK = avg(thermalPixels);
+                List<Analizer.Pair> colds = Analizer.findAllLessThan(thermalPixels, avgTempK - 1000);/*-delta*/
+                checkGroup(colds, width);
+                //Log.d("Test","группы определены, их" + count );
+                int lenght = 0;
+                int i = 0;
+                List<DiamondModel> diamonds = new ArrayList<>();
+                do{
+                    ArrayList data = new ArrayList();
+                    for (int j = 0; j < colds.size(); j++) {
+                        if (colds.get(j).group == i)
+                            data.add(thermalPixels[colds.get(j).index]);
+                    }
 
-                String result = (factorM > CONSTANT_FACTOR_M && factorK < CONSTANT_FACTOR_K)? "Натуральный" : "Искусственный";
+                    lenght = data.size();
+
+                    if(lenght == 0){
+                        i++;
+                        continue;
+                    }
+                    ImageData imageData = getImageData(data);
+                    float factorM = imageData.getMinTemp();
+                    float factorD = getFactorD(data, factorM, imageData.getAvgTemp());
+                    float factorK = factorD / factorM;
+
+                    DiamondModel diamond = new DiamondModel();
+                    diamond.setFactorD(factorD);
+                    diamond.setFactorM(factorM);
+                    diamond.setFactorK(factorK);
+                    //diamond.setType(factorK < CONSTANT_FACTOR_K);
+
+                    diamonds.add(diamond);
+                    i++;
+                }while (i < 40);
+
+                adapter = new ImageViewAdapter(diamonds, (Context)ImageViewer.this);
+                resultsListView.setAdapter(adapter);
+                /*
+                int[] data = renderedImage.thermalPixelValues();
+                int[] topData = Arrays.copyOfRange(data, 0, data.length / 2);
+                int[] bottomData = Arrays.copyOfRange(data, data.length / 2, data.length);
+                ImageData imageData = getImageData(topData);
+                float factorM = imageData.getMinTemp();
+                float factorD = getFactorD(topData, factorM, imageData.getAvgTemp());
+                float factorK = factorD / factorM;
+
+                String result = (factorM > CONSTANT_FACTOR_M && factorK < CONSTANT_FACTOR_K) ? "Натуральный" : "Искусственный";
                 resultTop.setText(String.format("factorM: %s; factorD: %s; factorK: %s result: %s", factorM, factorD, factorK, result));
 
                 imageData = getImageData(bottomData);
@@ -233,9 +287,9 @@ public class ImageViewer extends Activity {
                 factorD = getFactorD(bottomData, factorM, imageData.getAvgTemp());
                 factorK = factorD / factorM;
 
-                result = (factorM > CONSTANT_FACTOR_M && factorK < CONSTANT_FACTOR_K)? "Натуральный" : "Искусственный";
+                result = (factorM > CONSTANT_FACTOR_M && factorK < CONSTANT_FACTOR_K) ? "Натуральный" : "Искусственный";
                 resultBottom.setText(String.format("factorM: %s; factorD: %s; factorK: %s result: %s", factorM, factorD, factorK, result));
-
+*/
             }
         }
     };
@@ -245,24 +299,55 @@ public class ImageViewer extends Activity {
         int sum = 0;
         ImageData imageData = new ImageData();
         for (int i : data) {
-            if (i < (76 + 273.15) * 100){
+            if (i < DIAMOND_TOP_TEMPERATURE_K) {
                 count++;
-                sum += i/100-273.15;
-                if(imageData.getMinTemp() > i/100-273.15)
-                    imageData.setMinTemp(i/100-273.15);
+                float iC = TemperatureHelper.kelvinToCelsius(i);
+                sum += iC;
+                if (imageData.getMinTemp() > iC)
+                    imageData.setMinTemp(iC);
             }
         }
-        imageData.setAvgTemp(sum/count);
+        imageData.setAvgTemp(sum / count);
         return imageData;
     }
 
-    private double getFactorD(int[] data, double factorM, double avgTemp) {
-        double factorD = 0;
+    private ImageData getImageData(List<Integer> data) {
+        int count = 0;
+        int sum = 0;
+        ImageData imageData = new ImageData();
+        for (int i : data) {
+            if (i < DIAMOND_TOP_TEMPERATURE_K) {
+                count++;
+                float iC = TemperatureHelper.kelvinToCelsius(i);
+                sum += iC;
+                if (imageData.getMinTemp() > iC)
+                    imageData.setMinTemp(iC);
+            }
+        }
+        imageData.setAvgTemp(sum / count);
+        return imageData;
+    }
+
+    private float getFactorD(int[] data, float factorM, float avgTemp) {
+        float factorD = 0;
         int count = 0;
         for (int i : data) {
-            if (i < (76 + 273.15) * 100){
+            if (i < DIAMOND_TOP_TEMPERATURE_K) {
                 count++;
-                factorD += (i / 100 - 273.15 - avgTemp) * (i / 100 - 273.15 - avgTemp);
+                factorD += Math.pow(TemperatureHelper.kelvinToCelsius(i) - avgTemp, 2);
+            }
+        }
+        factorD = factorD / --count;
+        return factorD;
+    }
+
+    private float getFactorD(List<Integer> data, float factorM, float avgTemp) {
+        float factorD = 0;
+        int count = 0;
+        for (int i : data) {
+            if (i < DIAMOND_TOP_TEMPERATURE_K) {
+                count++;
+                factorD += Math.pow(TemperatureHelper.kelvinToCelsius(i) - avgTemp, 2);
             }
         }
         factorD = factorD / --count;
@@ -353,5 +438,9 @@ public class ImageViewer extends Activity {
         List<Double> result = new ArrayList<>();
 
         return result;
+    }
+
+    class ResultModel{
+
     }
 }

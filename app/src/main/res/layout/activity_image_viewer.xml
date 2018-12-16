@@ -21,21 +21,25 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
+    <ListView
+        android:id="@+id/resultsListView"
         android:layout_width="match_parent"
-        android:layout_below="@id/appbar"
-        />
-    <TextView
-        android:id="@+id/resultTop"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
-    <TextView
-        android:id="@+id/resultBottom"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Сохранить"/>
+        android:layout_height="wrap_content" >
+    </ListView>
+    <!--<TextView-->
+        <!--android:id="@+id/resultTop"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/resultBottom"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"/>-->
+    <!--<Button-->
+        <!--android:id="@+id/save_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Сохранить"/>-->
 
 </LinearLayout>

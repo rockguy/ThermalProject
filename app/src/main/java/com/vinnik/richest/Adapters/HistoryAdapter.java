@@ -1,42 +1,26 @@
 package com.vinnik.richest.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.vinnik.richest.DiamondDetail;
 import com.vinnik.richest.R;
-import com.vinnik.richest.models.ResearcherModel;
+import com.vinnik.richest.models.DiamondModel;
+
+import java.util.List;
 
 import static com.vinnik.richest.StartActivity.TAG;
 
-public class HistoryAdapter extends BaseAdapter {
-    ResearcherModel[] data;
-    LayoutInflater lInflater;
-    Context ctx;
+public class HistoryAdapter extends ImageViewAdapter {
 
-    public HistoryAdapter (ResearcherModel[] photoModels, Context context){
-        ctx = context;
-        data = photoModels;
-        lInflater = (LayoutInflater) ctx
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-    @Override
-    public int getCount() {
-        return data.length;
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return data[i];
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
+    public HistoryAdapter(List<DiamondModel> data, Context context) {
+        super(data, context);
     }
 
     @Override
@@ -44,24 +28,16 @@ public class HistoryAdapter extends BaseAdapter {
         View view = convertView;
         try {
             if (view == null) {
-                view = lInflater.inflate(R.layout.history_item, viewGroup, false);
+                view = lInflater.inflate(R.layout.diamond_result_item, viewGroup, false);
             }
-            //TODO: сделать нормально
-            String theWeather = data[i].getTheWeather();
-            if (!theWeather.equals("") && !theWeather.equals(null)) {
-                ((TextView) view.findViewById(R.id.the_weather)).setText(theWeather);
-            }
-            int WindSpeed = data[i].getWindSpeed();
-            if (WindSpeed != 0) {
-                ((TextView) view.findViewById(R.id.wind_speed)).setText(String.valueOf(WindSpeed));
-            }
-
-            ((TextView) view.findViewById(R.id.outdoor_temp)).setText(String.valueOf(data[i].getOutdoorTemp()));
-            ((TextView) view.findViewById(R.id.avg_temp)).setText(String.valueOf(data[i].getAvgTemp()));
-            ((TextView) view.findViewById(R.id.min_temp)).setText(String.valueOf(data[i].getMinTemp()));
-            ((TextView) view.findViewById(R.id.air_humidity)).setText(String.valueOf(data[i].getAirHumidity()));
-            ((TextView) view.findViewById(R.id.time)).setText(String.valueOf(data[i].getTime()));
-            ((TextView) view.findViewById(R.id.result)).setText(data[i].getResult());
+            ((TextView) view.findViewById(R.id.result_text)).setText(getResultString(data.get(i)));
+            ImageButton save = (ImageButton) view.findViewById(R.id.save_button);
+            save.setOnClickListener(view1 -> {
+                Toast.makeText(ctx, "Редактирую", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ctx, DiamondDetail.class);
+                intent.putExtra("Diamond",data.get(i));
+                ctx.startActivity(intent);
+            });
         }
         catch (Exception e){
             Log.e(TAG, e.getMessage());

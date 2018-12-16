@@ -53,10 +53,6 @@ import static com.vinnik.richest.StartActivity.TAG;
  */
 public class GLUserPreviewActivity extends Activity implements Device.Delegate, FrameProcessor.Delegate, Device.StreamDelegate {
     private static final int PERMISSION_REQUEST_CODE = 0;
-    private double CONSTANT_FACTOR_K;
-    private double CONSTANT_FACTOR_M;
-    //TODO: Удалить
-    private static double CONSTANT_DELTA = 0;
 
     Realm realm;
     GLSurfaceView thermalSurfaceView;
@@ -203,9 +199,6 @@ public class GLUserPreviewActivity extends Activity implements Device.Delegate, 
             Log.i(TAG, "Создаем намерение");
             Intent i = new Intent(getApplication(), ImageViewer.class);
             i.putExtra("imagePath", lastSavedPath);
-            i.putExtra("factorK", CONSTANT_FACTOR_K);
-            i.putExtra("factorM", CONSTANT_FACTOR_M);
-
             Log.i(TAG, "Выполняем намерение");
             startActivity(i);
 
@@ -220,17 +213,17 @@ public class GLUserPreviewActivity extends Activity implements Device.Delegate, 
         }
     }
 
-    public boolean checkImage(int[] array){
-        double min = Integer.MAX_VALUE;
-        double avg = 0;
-        for (int x : array) {
-            avg += x;
-            if (x < min)
-                min = x;
-        }
-        avg = avg / array.length;
-        return (avg-min) / 100 > CONSTANT_DELTA;
-    }
+//    public boolean checkImage(int[] array){
+//        double min = Integer.MAX_VALUE;
+//        double avg = 0;
+//        for (int x : array) {
+//            avg += x;
+//            if (x < min)
+//                min = x;
+//        }
+//        avg = avg / array.length;
+//        return (avg-min) / 100 > CONSTANT_DELTA;
+//    }
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -319,8 +312,6 @@ public class GLUserPreviewActivity extends Activity implements Device.Delegate, 
 
         Intent inputIntent = getIntent();
         //CONSTANT_DELTA = inputIntent.getIntExtra("delta",6);
-        CONSTANT_FACTOR_K = inputIntent.getDoubleExtra("factorK",6);
-        CONSTANT_FACTOR_M = inputIntent.getDoubleExtra("factorM",6);
 
         setContentView(R.layout.activity_gl_preview_user);
         final View controlsView = findViewById(R.id.fullscreen_content_controls);

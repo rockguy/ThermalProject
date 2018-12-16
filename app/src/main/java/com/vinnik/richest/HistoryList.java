@@ -8,7 +8,9 @@ import android.util.Log;
 import android.widget.ListView;
 
 import com.vinnik.richest.Adapters.HistoryAdapter;
-import com.vinnik.richest.models.ResearcherModel;
+import com.vinnik.richest.models.DiamondModel;
+
+import java.util.Arrays;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -28,8 +30,8 @@ public class HistoryList extends AppCompatActivity {
 
         realm = Realm.getDefaultInstance();
         Log.i("Test", realm.getPath());
-        RealmResults<ResearcherModel> query = realm.where(ResearcherModel.class).findAll();
-        ResearcherModel[] models = query.toArray(new ResearcherModel[0]);
+        RealmResults<DiamondModel> query = realm.where(DiamondModel.class).findAll();
+        DiamondModel[] models = query.toArray(new DiamondModel[0]);
 //        ResearcherModel[][] data = new ResearcherModel[models.length][4];
 //        for(int i = 0; i < models.length; i++){
 //            data[i][0] = models[i].getMinTemp();
@@ -37,7 +39,7 @@ public class HistoryList extends AppCompatActivity {
 //            data[i][2] = models[i];
 //            data[i][3] = models[i];
 //        }
-        listView.setAdapter(new HistoryAdapter(models, this));
+        listView.setAdapter(new HistoryAdapter(Arrays.asList(models), this));
         //realm.close();
     }
 
