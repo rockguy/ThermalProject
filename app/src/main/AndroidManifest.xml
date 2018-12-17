@@ -85,7 +85,7 @@
         <activity
             android:name=".HistoryList"
             android:label="@string/title_activity_history_list"
-            android:noHistory="true"
+            android:noHistory="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -99,7 +99,7 @@
         <activity
             android:name=".ImageViewer"
             android:label="ImageViewer"
-            android:noHistory="true"
+            android:noHistory="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

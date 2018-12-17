@@ -31,7 +31,7 @@ public class HistoryList extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         Log.i("Test", realm.getPath());
         RealmResults<DiamondModel> query = realm.where(DiamondModel.class).findAll();
-        DiamondModel[] models = query.toArray(new DiamondModel[0]);
+        DiamondModel[] models = realm.copyFromRealm(query).toArray(new DiamondModel[0]);
 //        ResearcherModel[][] data = new ResearcherModel[models.length][4];
 //        for(int i = 0; i < models.length; i++){
 //            data[i][0] = models[i].getMinTemp();

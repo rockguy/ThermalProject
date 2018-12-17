@@ -3,9 +3,11 @@ package com.vinnik.richest.models;
 import java.io.Serializable;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class DiamondModel extends RealmObject implements Serializable {
-
+    @PrimaryKey
+    private long id;
     private String type;
     private String form;
     private byte countOfEdges;
@@ -18,6 +20,14 @@ public class DiamondModel extends RealmObject implements Serializable {
     private float factorD;
     private float factorM;
     private String shape;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getShape() {
         return shape;
@@ -58,6 +68,7 @@ public class DiamondModel extends RealmObject implements Serializable {
     public float getWeight() {
         return weight;
     }
+
     public String getWeightT() {
         return String.valueOf(weight);
     }

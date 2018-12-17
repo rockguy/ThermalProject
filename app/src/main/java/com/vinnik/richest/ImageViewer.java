@@ -34,7 +34,6 @@ import io.realm.Realm;
 import static com.vinnik.richest.StartActivity.DIAMOND_FACTORS;
 import static com.vinnik.richest.StartActivity.FACTOR_K;
 import static com.vinnik.richest.StartActivity.TAG;
-import static com.vinnik.richest.util.Analizer.checkGroup;
 
 public class ImageViewer extends Activity {
     private String imagePath;
@@ -234,12 +233,13 @@ public class ImageViewer extends Activity {
                 int width = renderedImage.width();
                 renderedImage = null;
                 double avgTempK = avg(thermalPixels);
-                List<Analizer.Pair> colds = Analizer.findAllLessThan(thermalPixels, avgTempK - 1000);/*-delta*/
-                checkGroup(colds, width);
-                //Log.d("Test","группы определены, их" + count );
+                List<Analizer.Pair> colds = Analizer.findAllLessThan(thermalPixels, avgTempK - 300);/*-delta*/
+                List<DiamondModel> diamonds = new ArrayList<>();
+
+                /*checkGroup(colds, width);
+                Log.d("Test","группы определены, их" + count );
                 int lenght = 0;
                 int i = 0;
-                List<DiamondModel> diamonds = new ArrayList<>();
                 do{
                     ArrayList data = new ArrayList();
                     for (int j = 0; j < colds.size(); j++) {
@@ -267,8 +267,27 @@ public class ImageViewer extends Activity {
                     diamonds.add(diamond);
                     i++;
                 }while (i < 40);
+*/
+                ArrayList data = new ArrayList();
+                for (int j = 0; j < colds.size(); j++) {
+                    data.add(thermalPixels[colds.get(j).index]);
+                }
 
-                adapter = new ImageViewAdapter(diamonds, (Context)ImageViewer.this);
+
+                ImageData imageData = getImageData(data);
+                float factorM = imageData.getMinTemp();
+                float factorD = getFactorD(data, factorM, imageData.getAvgTemp());
+                float factorK = factorD / factorM;
+
+                DiamondModel diamond = new DiamondModel();
+                diamond.setFactorD(factorD);
+                diamond.setFactorM(factorM);
+                diamond.setFactorK(factorK);
+                //diamond.setType(factorK < CONSTANT_FACTOR_K);
+
+                diamonds.add(diamond);
+
+                adapter = new ImageViewAdapter(diamonds, (Context) ImageViewer.this);
                 resultsListView.setAdapter(adapter);
                 /*
                 int[] data = renderedImage.thermalPixelValues();
@@ -440,7 +459,7 @@ public class ImageViewer extends Activity {
         return result;
     }
 
-    class ResultModel{
+    class ResultModel {
 
     }
 }

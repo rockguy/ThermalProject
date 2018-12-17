@@ -17,7 +17,7 @@ public class DiamondDetail extends AppCompatActivity {
 
     Realm realm;
 
-    EditText isNatural;
+    EditText type;
     EditText form;
     EditText countOfEdges;
     EditText shape;
@@ -29,6 +29,9 @@ public class DiamondDetail extends AppCompatActivity {
     EditText factorK;
     EditText factorD;
     EditText factorM;
+
+    Button save;
+    Button delete;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -43,7 +46,7 @@ public class DiamondDetail extends AppCompatActivity {
         DiamondModel diamond = (DiamondModel) intent.getSerializableExtra("Diamond");
 
 
-        isNatural = (EditText) findViewById(R.id.isNatural);
+        type = (EditText) findViewById(R.id.type);
         form = (EditText) findViewById(R.id.form);
         countOfEdges = (EditText) findViewById(R.id.countOfEdges);
         shape = (EditText) findViewById(R.id.quality);
@@ -56,7 +59,11 @@ public class DiamondDetail extends AppCompatActivity {
         factorD = (EditText) findViewById(R.id.factorD);
         factorM = (EditText) findViewById(R.id.factorM);
 
-        isNatural.setText(diamond.getType());
+        save = (Button) findViewById(R.id.save_button);
+        delete = (Button) findViewById(R.id.delete_button);
+
+
+        type.setText(diamond.getType());
         form.setText(diamond.getForm());
         countOfEdges.setText(diamond.getCountOfEdgesT());
         shape.setText(diamond.getShape());
@@ -69,32 +76,40 @@ public class DiamondDetail extends AppCompatActivity {
         factorD.setText(diamond.getFactorDT());
         factorM.setText(diamond.getFactorMT());
 
-        Button save = (Button) findViewById(R.id.save_button);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        delete.setVisibility(diamond.getId() == 0 ? View.GONE : View.VISIBLE);
 
-                diamond.setType(isNatural.getText().toString().toLowerCase());
-                diamond.setForm(form.getText().toString());
-                diamond.setCountOfEdges(Byte.parseByte(countOfEdges.getText().toString()));
-                diamond.setShape(shape.getText().toString());
-                diamond.setWeight(Float.parseFloat(weight.getText().toString()));
-                diamond.setClarity(Integer.parseInt(purity.getText().toString()));
-                diamond.setDiameter(Float.parseFloat(diameter.getText().toString()));
-                diamond.setColor(color.getText().toString());
-                diamond.setCutType(cutType.getText().toString());
-                diamond.setFactorK(Float.parseFloat(factorK.getText().toString()));
-                diamond.setFactorD(Float.parseFloat(factorD.getText().toString()));
-                diamond.setFactorM(Float.parseFloat(factorM.getText().toString()));
+        save.setOnClickListener(view -> {
 
-
-                realm.beginTransaction();
-                realm.copyToRealmOrUpdate(diamond);
-                realm.commitTransaction();
-
+            if (diamond.getId() == 0) {
+                Number id = realm.where(DiamondModel.class).max("id");
+                diamond.setId(id == null ? 1 : id.longValue() + 1);
             }
+
+            diamond.setType(type.getText().toString().toLowerCase());
+            diamond.setForm(form.getText().toString());
+            diamond.setCountOfEdges(Byte.parseByte(countOfEdges.getText().toString()));
+            diamond.setShape(shape.getText().toString());
+            diamond.setWeight(Float.parseFloat(weight.getText().toString()));
+            diamond.setClarity(Integer.parseInt(purity.getText().toString()));
+            diamond.setDiameter(Float.parseFloat(diameter.getText().toString()));
+            diamond.setColor(color.getText().toString());
+            diamond.setCutType(cutType.getText().toString());
+            diamond.setFactorK(Float.parseFloat(factorK.getText().toString()));
+            diamond.setFactorD(Float.parseFloat(factorD.getText().toString()));
+            diamond.setFactorM(Float.parseFloat(factorM.getText().toString()));
+
+
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(diamond);
+            realm.commitTransaction();
+
+            onBackPressed();
         });
 
+        delete.setOnClickListener(view -> {
+            diamond.deleteFromRealm();
+            onBackPressed();
+        });
     }
 
     @Override

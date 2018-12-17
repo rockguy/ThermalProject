@@ -7,6 +7,7 @@
     tools:context=".DiamondDetail">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -19,93 +20,179 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
+    <!--todo: работает отвратно-->
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_below="@id/appbar">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/appbar"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/isNatural"
+        <android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Тип камня"/>
+        </android.support.design.widget.TextInputLayout>>
+        <android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Форма"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/countOfEdges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Число граней"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Качество огранки"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:hint="Вес в каратах"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Натуральный? (да/нет)"/>
-        <EditText
-            android:id="@+id/form"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/purity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Чистота"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Форма"/>
-        <EditText
-            android:id="@+id/countOfEdges"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/diameter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:hint="Диаметр"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Число граней"/>
-        <EditText
-            android:id="@+id/quality"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Цвет"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Качество огранки"/>
-        <EditText
-            android:id="@+id/weight"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/cutType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Тип огранки"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:hint="Вес в каратах"/>
-        <EditText
-            android:id="@+id/purity"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/factorK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:hint="Фактор К"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Чистота"/>
-        <EditText
-            android:id="@+id/diameter"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/factorD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:hint="Фактор Д"/>
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:hint="Диаметр"/>
-        <EditText
-            android:id="@+id/color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Цвет"/>
-        <EditText
-            android:id="@+id/cutType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Тип огранки"/>
-        <EditText
-            android:id="@+id/factorK"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:hint="Фактор К"/>
-        <EditText
-            android:id="@+id/factorD"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:hint="Фактор Д"/>
-        <EditText
-            android:id="@+id/factorM"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:hint="Фактор М"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:id="@+id/factorM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:hint="Фактор М"/>
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/save_button"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="Сохранить"/>
-    </LinearLayout>
 
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Удалить"/>
+    </LinearLayout>
+</ScrollView>
 
 
 </android.support.design.widget.CoordinatorLayout>
