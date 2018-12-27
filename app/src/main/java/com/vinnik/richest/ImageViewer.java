@@ -283,6 +283,12 @@ public class ImageViewer extends Activity {
                 diamond.setFactorD(factorD);
                 diamond.setFactorM(factorM);
                 diamond.setFactorK(factorK);
+
+//                double avgFianit = realm.where(DiamondModel.class).equalTo("result", "фианит").average("factorK");
+//                double avgNatural = realm.where(DiamondModel.class).equalTo("result", "натуральный").average("factorK");
+//                double avgNotNatural = realm.where(DiamondModel.class).equalTo("result", "искусственный").average("factorK");
+//
+
                 //diamond.setType(factorK < CONSTANT_FACTOR_K);
 
                 diamonds.add(diamond);
